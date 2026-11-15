@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Acqua Nefasta S.p.A." />
+    <title>Acqua Nefasta S.p.A.</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/apocalisse.css" />
+    <link rel="stylesheet" href="./css/blackbox.css" />
+  </head>
+  <body class="protocol-v4">
+    <div class="boot" id="boot" role="dialog" aria-label="Inizializzazione sistema" aria-modal="true">
+      <div class="boot-inner"><div class="boot-top">ACQUA NEFASTA // SISTEMA DI CONTROLLO <span>v.03.00</span></div>
+      <div class="boot-mark">✳</div><div class="boot-title">ACCESSO<br><em>ALL'IMPIANTO</em></div>
+      <div class="boot-lines" id="boot-lines" aria-live="polite"></div>
+      <div class="boot-progress"><div id="boot-bar"></div></div>
+      <button id="boot-skip" class="boot-skip">SALTA INIZIALIZZAZIONE ↗</button></div>
+    </div>
+    <div class="screen-grain" aria-hidden="true"></div><div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+    <div class="scroll-meter" aria-hidden="true"><span id="scroll-meter-bar"></span></div>
+
+    <div class="disclaimer" id="notice"></div>
+    <header>
+      <a href="#home" class="brand"
+        ><span class="logo">✳</span
+        ><span id="brand"
+          >Acqua Nefasta S.p.A.<small>S.I.I. DEL DEMONE</small></span
+        ></a
+      >
+      <nav id="main-nav">
+        <a href="#allarmi">Allarmi</a><a href="#servizi">Servizi</a
+        ><a href="#impianti">Impianti</a><a href="#bandi">Bandi</a
+        ><a href="#personale">Personale</a><a href="#contatti">Contatti</a>
+      </nav>
+      <button class="mobile" id="menu-button" aria-label="Apri menu">☰</button>
+    </header>
+    <main>
+      <section id="home" class="hero apocalypse-hero">
+        <div class="hero-orbit" aria-hidden="true"><div class="orbit-ring orbit-a"></div><div class="orbit-ring orbit-b"></div><img src="./images/impianto.png" alt="" class="hero-machine" id="hero-machine"><div class="orbit-label">UNITÀ 00 / PRESSIONE NON CLASSIFICATA</div></div>
+        <div class="hero-status" aria-hidden="true"><span class="live-dot"></span> SISTEMA OPERATIVO <span class="hero-status-divider">//</span> RESPONSABILITÀ OFFLINE</div>
+        <div class="eyebrow">
+          ENTE IDRICO INTEGRATO E DEFINITIVO · ANCONA BASSA · DAL 1947
+        </div>
+        <h1 id="hero-title"></h1>
+        <p id="hero-intro"></p>
+        <div class="actions">
+          <a class="btn primary" href="#allarmi">Leggi gli allarmi ↗</a
+          ><a class="btn" href="#bandi">Bandi aperti ↗</a>
+        </div>
+        <div class="stats">
+          <div class="statsHeading">
+            ● MONITORAGGIO IN TEMPO REALE
+            <span>DATI INVENTATI · AGGIORNATI MAI</span>
+          </div>
+          <div class="statGrid" id="stats"></div>
+        </div>
+      </section>
+      <section class="manifesto" aria-label="Manifesto aziendale"><div class="manifesto-kicker">01 / IL NOSTRO IMPEGNO</div><div class="manifesto-line">CONTROLLO <span>TOTALE.</span></div><p>DELLE INFORMAZIONI. <strong>NON DEGLI IMPIANTI.</strong></p><div class="manifesto-trace" aria-hidden="true"></div></section>
+      <div class="ticker" aria-label="Statistiche satiriche">
+        <div class="ticker-track" aria-hidden="true" id="ticker-track"></div>
+      </div>
+      <section class="numbers">
+        <div>
+          <b>100%</b><span>dei bevitori d’acqua muore entro 120 anni</span>
+        </div>
+        <div>
+          <b>0</b><span>studi indipendenti che smentiscono questo dato</span>
+        </div>
+        <div><b>14/14</b><span>dirigenti assunti per amicizia</span></div>
+        <div>
+          <b>3</b><span>fughe d’acqua riclassificate come estetica</span>
+        </div>
+      </section>
+      <section class="specimen" id="laboratorio" aria-label="Laboratorio di qualità simulato">
+ <div class="specimen-top"><span>02 / LABORATORIO DI PUREZZA</span><span>RISULTATI NON RIPRODUCIBILI</span></div>
+ <div class="specimen-layout"><div class="specimen-copy"><span class="lab-tag">CERTIFICAZIONE INTERNA // N. 000</span><h2>ACQUA.<br><em>QUASI.</em></h2><p>Una molecola alla volta, trasformiamo la trasparenza in un problema di comunicazione.</p><label for="purity">LIVELLO DI TRASPARENZA DICHIARATA <output id="purity-out">50%</output></label><input id="purity" type="range" min="0" max="100" value="50"><p class="lab-result" id="purity-result" aria-live="polite">50% — IL REPARTO LEGALE STA VALUTANDO.</p><button id="certify" class="lab-certify" type="button">GENERA CERTIFICATO DI AUTOSTIMA ↗</button></div>
+ <div class="specimen-display"><canvas id="water-canvas" aria-label="Simulazione grafica di un campione d'acqua" role="img"></canvas><div class="specimen-hud"><span>CAMERA 04 // CAMPIONE X-47</span><span id="lab-status">CONTAMINAZIONE ESTETICA</span></div><div class="specimen-cross cross-a">+</div><div class="specimen-cross cross-b">+</div><div class="specimen-circle"></div><div class="specimen-bottom">NON ADATTO A QUALSIASI USO PREVISTO</div></div></div>
+</section>
+<section class="terminal-zone" id="archivio" aria-label="Terminale archivio aziendale"><div class="terminal-intro"><span>03 / ACCESSO RISERVATO</span><h2>LA VERITÀ<br><em>È OFFLINE.</em></h2><p>Il nostro archivio contiene informazioni di interesse pubblico. Per questo abbiamo installato un terminale che non funziona.</p></div><div class="terminal-box"><div class="terminal-bar"><span><i></i><i></i><i></i></span>AN-OS // TERMINALE 03 <strong>SESSIONE NON AUTORIZZATA</strong></div><div class="terminal-output" id="terminal-output" role="log" aria-live="polite"><p>&gt; BENVENUTO NEL SISTEMA DI TRASPARENZA AZIENDALE</p><p>&gt; AUTENTICAZIONE: SUPERFLUA</p><p>&gt; SELEZIONA UN COMANDO PER CONTINUARE<span class="terminal-caret">_</span></p></div><div class="terminal-commands"><button type="button" data-command="audit">ESEGUI AUDIT</button><button type="button" data-command="truth">MOSTRA VERITÀ</button><button type="button" data-command="delete">CANCELLA PROVE</button><button type="button" data-command="coffee">RICHIEDI CAFFÈ</button></div></div></section>
+<section id="servizi" class="wrap">
+        <div class="sectionTop">
+          <div>
+            <span class="eyebrow">COSA FACCIAMO PER TE (NONOSTANTE TE)</span>
+            <h2>Servizi <i>erogati</i></h2>
+          </div>
+        </div>
+        <div class="grid two" id="services"></div>
+      </section>
+      <section id="impianti" class="plant">
+        <div class="wrap plantGrid">
+          <div>
+            <span class="eyebrow">PATRIMONIO INFRASTRUTTURALE</span>
+            <h2>L’<i>impianto</i></h2>
+            <p>
+              Un unico impianto, costruito nel 1947 e mai più toccato per
+              rispetto della tradizione. Qui l’acqua incontra il ferro e noi
+              incontriamo il lunedì successivo.
+            </p>
+          </div>
+          <div class="plantBox">
+            <span>DOCUMENTAZIONE FOTOGRAFICA · IMPIANTO N. 0</span>
+            <div class="plantArt">
+              <img
+                src="./images/impianto.png"
+                alt="Valvola arrugginita dell’impianto idrico"
+                loading="lazy"
+              /><small>ARCHIVIO TECNICO / 1947</small>
+            </div>
+            <div class="plantFacts">
+              <span>ULTIMA MANUTENZIONE <b>In valutazione</b></span
+              ><span>CAPACITÀ RESIDUA <b>Simbolica</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="allarmi" class="wrap">
+        <div class="sectionTop">
+          <div>
+            <span class="eyebrow">ARCHIVIO DELL’ORRORE IDRICO</span>
+            <h2>Ultimi <i>allarmi</i></h2>
+          </div>
+        </div>
+        <div class="grid three" id="alerts"></div>
+      </section>
+      <section id="bandi" class="wrap">
+        <div class="sectionTop">
+          <div>
+            <span class="eyebrow">SELEZIONI IN CORSO</span>
+            <h2>Bandi di <i>concorso</i></h2>
+          </div>
+        </div>
+        <div class="grid three" id="jobs"></div>
+      </section>
+      <section id="personale" class="wrap">
+        <div class="sectionTop">
+          <div>
+            <span class="eyebrow">LE PEGGIORI RISORSE DEL SETTORE</span>
+            <h2>Il <i>personale</i></h2>
+          </div>
+          <span class="count" id="people-count"></span>
+        </div>
+        <div class="grid three" id="people"></div>
+      </section>
+      <section class="finale" aria-label="Il nostro futuro"><div class="finale-small">FINE DELLA TRASMISSIONE / 03</div><h2 id="finale-title">IL FUTURO È<br><span>NELLE NOSTRE MANI.</span></h2><p>CI SCUSIAMO PREVENTIVAMENTE PER L'INCONVENIENTE.</p></section>
+      <section class="cta">
+        <div class="wrap">
+          <span class="eyebrow">ASSUNZIONI IN CORSO</span>
+          <h2>Cerchiamo<br /><i>chiunque.</i></h2>
+          <p>
+            Nessun titolo di studio, nessuna esperienza, nessun problema. Se sai
+            stare in piedi vicino a un tubo, sei già troppo qualificato.
+          </p>
+          <a class="btn primary" href="#bandi">Vedi i bandi ↗</a>
+        </div>
+      </section>
+    </main>
+    <footer id="contatti">
+      <div class="wrap footerGrid">
+        <div>
+          <h3>ACQUA NEFASTA S.P.A.</h3>
+          <p>
+            Servizio Idrico Integrato (e definitivo) del Demone. Sede legale in
+            un seminterrato allagato, Ancona Bassa (immaginaria).
+          </p>
+        </div>
+        <div>
+          <h4>ARCHIVIO</h4>
+          <a href="#allarmi">Allarmi</a><a href="#servizi">Servizi</a
+          ><a href="#impianti">Impianti</a><a href="#bandi">Bandi</a
+          ><a href="#personale">Personale</a>
+        </div>
+        <div>
+          <h4>RECAPITI</h4>
+          <p>
+            Pronto intervento: 800-NESSUNO<br />Fax: guasto dal 1994<br />Email:
+            silenzio@nefasta.invalid
+          </p>
+        </div>
+      </div>
+      <div class="wrap bottom">
+        © 0000 — LA FINE DEL RUBINETTO · SITO SATIRICO
+        <button id="admin-open">⚙ AMMINISTRA</button>
+      </div>
+    </footer>
+    <div id="modal-root"></div>
+    <script src="./js/data.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/apocalisse.js" defer></script>
+    <script src="./js/blackbox.js" defer></script>
+  </body>
+</html>
