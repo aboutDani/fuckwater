@@ -44,15 +44,15 @@ La nostra missione è semplice:
 
 Crediamo fermamente in tre principi fondamentali:
 
-- 💧 **Qualità** — Un concetto soggettivo.
-- ☢️ **Sicurezza** — Un'affascinante ipotesi teorica.
-- 📉 **Responsabilità** — Attualmente in manutenzione.
+- **Qualità** — Un concetto soggettivo.
+- **Sicurezza** — Un'affascinante ipotesi teorica.
+- **Responsabilità** — Attualmente in manutenzione.
 
 *Innovazione senza conseguenze. O almeno senza conseguenze documentate.*
 
 ---
 
-## 🖥️ SPECIFICHE TECNICHE
+## SPECIFICHE TECNICHE
 
 ```text
 ┌──────────────────────────────────────────────────┐
