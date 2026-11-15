@@ -26,7 +26,7 @@
 
 ## 🌐 ACCESSO ALL'IMPIANTO
 
-### ☢️ **[ACCEDI AL SITO UFFICIALE FUCKWATER](https://aboutdani.github.io/fuckwater/)** ☢️
+### **[ACCEDI AL SITO UFFICIALE FUCKWATER](https://aboutdani.github.io/fuckwater/)** 
 
 **↳** `https://aboutdani.github.io/fuckwater/`
 
@@ -34,7 +34,7 @@
 
 ---
 
-## 🧪 CHI SIAMO?
+## CHI SIAMO?
 
 **FUCKWATER™ — Acqua Nefasta S.p.A.** è una multinazionale industriale immaginaria che opera all'intersezione tra ingegneria discutibile, marketing aggressivo e fiducia del tutto ingiustificata.
 
@@ -76,7 +76,7 @@ Nessuna garanzia sulla qualità dell'acqua.
 
 ---
 
-## 📡 COMUNICAZIONE AZIENDALE RISERVATA
+## COMUNICAZIONE AZIENDALE RISERVATA
 
 ```text
 > AVVIO PROCEDURA DI TRASPARENZA AZIENDALE...
@@ -96,7 +96,7 @@ Nessuna garanzia sulla qualità dell'acqua.
 
 ---
 
-## ☣️ I NOSTRI VALORI
+## I NOSTRI VALORI
 
 **01 — INNOVAZIONE**
 
@@ -120,7 +120,7 @@ La fiducia dei cittadini è fondamentale. Per questo evitiamo di fornire loro in
 
 ---
 
-## ⚠️ AVVISO LEGALE
+## AVVISO LEGALE
 
 Questo sito è un **progetto satirico completamente immaginario**.
 
@@ -136,7 +136,7 @@ Nessuna vera risorsa idrica è stata danneggiata durante lo sviluppo di questo s
 
 ### `I L   F U T U R O   È   T O R B I D O .`
 
-**☢️ ALIMENTATO DA PESSIME DECISIONI E PURO HTML ☢️**
+** ALIMENTATO DA PESSIME DECISIONI E PURO HTML **
 
 ### [ ⟦ ENTRA NELL'IMPIANTO ⟧ ](https://aboutdani.github.io/fuckwater/)
 
