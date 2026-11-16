@@ -10,15 +10,31 @@
     <link rel="stylesheet" href="./css/blackbox.css" />
   </head>
   <body class="protocol-v4">
-    <div class="boot" id="boot" role="dialog" aria-label="Inizializzazione sistema" aria-modal="true">
-      <div class="boot-inner"><div class="boot-top">ACQUA NEFASTA // SISTEMA DI CONTROLLO <span>v.03.00</span></div>
-      <div class="boot-mark">✳</div><div class="boot-title">ACCESSO<br><em>ALL'IMPIANTO</em></div>
-      <div class="boot-lines" id="boot-lines" aria-live="polite"></div>
-      <div class="boot-progress"><div id="boot-bar"></div></div>
-      <button id="boot-skip" class="boot-skip">SALTA INIZIALIZZAZIONE ↗</button></div>
+    <div
+      class="boot"
+      id="boot"
+      role="dialog"
+      aria-label="Inizializzazione sistema"
+      aria-modal="true"
+    >
+      <div class="boot-inner">
+        <div class="boot-top">
+          ACQUA NEFASTA // SISTEMA DI CONTROLLO <span>v.03.00</span>
+        </div>
+        <div class="boot-mark">✳</div>
+        <div class="boot-title">ACCESSO<br /><em>ALL'IMPIANTO</em></div>
+        <div class="boot-lines" id="boot-lines" aria-live="polite"></div>
+        <div class="boot-progress"><div id="boot-bar"></div></div>
+        <button id="boot-skip" class="boot-skip">
+          SALTA INIZIALIZZAZIONE ↗
+        </button>
+      </div>
     </div>
-    <div class="screen-grain" aria-hidden="true"></div><div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
-    <div class="scroll-meter" aria-hidden="true"><span id="scroll-meter-bar"></span></div>
+    <div class="screen-grain" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+    <div class="scroll-meter" aria-hidden="true">
+      <span id="scroll-meter-bar"></span>
+    </div>
 
     <div class="disclaimer" id="notice"></div>
     <header>
@@ -37,8 +53,21 @@
     </header>
     <main>
       <section id="home" class="hero apocalypse-hero">
-        <div class="hero-orbit" aria-hidden="true"><div class="orbit-ring orbit-a"></div><div class="orbit-ring orbit-b"></div><img src="./images/impianto.png" alt="" class="hero-machine" id="hero-machine"><div class="orbit-label">UNITÀ 00 / PRESSIONE NON CLASSIFICATA</div></div>
-        <div class="hero-status" aria-hidden="true"><span class="live-dot"></span> SISTEMA OPERATIVO <span class="hero-status-divider">//</span> RESPONSABILITÀ OFFLINE</div>
+        <div class="hero-orbit" aria-hidden="true">
+          <div class="orbit-ring orbit-a"></div>
+          <div class="orbit-ring orbit-b"></div>
+          <img
+            src="./images/impianto.png"
+            alt=""
+            class="hero-machine"
+            id="hero-machine"
+          />
+          <div class="orbit-label">UNITÀ 00 / PRESSIONE NON CLASSIFICATA</div>
+        </div>
+        <div class="hero-status" aria-hidden="true">
+          <span class="live-dot"></span> SISTEMA OPERATIVO
+          <span class="hero-status-divider">//</span> RESPONSABILITÀ OFFLINE
+        </div>
         <div class="eyebrow">
           ENTE IDRICO INTEGRATO E DEFINITIVO · ANCONA BASSA · DAL 1947
         </div>
@@ -56,7 +85,12 @@
           <div class="statGrid" id="stats"></div>
         </div>
       </section>
-      <section class="manifesto" aria-label="Manifesto aziendale"><div class="manifesto-kicker">01 / IL NOSTRO IMPEGNO</div><div class="manifesto-line">CONTROLLO <span>TOTALE.</span></div><p>DELLE INFORMAZIONI. <strong>NON DEGLI IMPIANTI.</strong></p><div class="manifesto-trace" aria-hidden="true"></div></section>
+      <section class="manifesto" aria-label="Manifesto aziendale">
+        <div class="manifesto-kicker">01 / IL NOSTRO IMPEGNO</div>
+        <div class="manifesto-line">CONTROLLO <span>TOTALE.</span></div>
+        <p>DELLE INFORMAZIONI. <strong>NON DEGLI IMPIANTI.</strong></p>
+        <div class="manifesto-trace" aria-hidden="true"></div>
+      </section>
       <div class="ticker" aria-label="Statistiche satiriche">
         <div class="ticker-track" aria-hidden="true" id="ticker-track"></div>
       </div>
@@ -72,13 +106,95 @@
           <b>3</b><span>fughe d’acqua riclassificate come estetica</span>
         </div>
       </section>
-      <section class="specimen" id="laboratorio" aria-label="Laboratorio di qualità simulato">
- <div class="specimen-top"><span>02 / LABORATORIO DI PUREZZA</span><span>RISULTATI NON RIPRODUCIBILI</span></div>
- <div class="specimen-layout"><div class="specimen-copy"><span class="lab-tag">CERTIFICAZIONE INTERNA // N. 000</span><h2>ACQUA.<br><em>QUASI.</em></h2><p>Una molecola alla volta, trasformiamo la trasparenza in un problema di comunicazione.</p><label for="purity">LIVELLO DI TRASPARENZA DICHIARATA <output id="purity-out">50%</output></label><input id="purity" type="range" min="0" max="100" value="50"><p class="lab-result" id="purity-result" aria-live="polite">50% — IL REPARTO LEGALE STA VALUTANDO.</p><button id="certify" class="lab-certify" type="button">GENERA CERTIFICATO DI AUTOSTIMA ↗</button></div>
- <div class="specimen-display"><canvas id="water-canvas" aria-label="Simulazione grafica di un campione d'acqua" role="img"></canvas><div class="specimen-hud"><span>CAMERA 04 // CAMPIONE X-47</span><span id="lab-status">CONTAMINAZIONE ESTETICA</span></div><div class="specimen-cross cross-a">+</div><div class="specimen-cross cross-b">+</div><div class="specimen-circle"></div><div class="specimen-bottom">NON ADATTO A QUALSIASI USO PREVISTO</div></div></div>
-</section>
-<section class="terminal-zone" id="archivio" aria-label="Terminale archivio aziendale"><div class="terminal-intro"><span>03 / ACCESSO RISERVATO</span><h2>LA VERITÀ<br><em>È OFFLINE.</em></h2><p>Il nostro archivio contiene informazioni di interesse pubblico. Per questo abbiamo installato un terminale che non funziona.</p></div><div class="terminal-box"><div class="terminal-bar"><span><i></i><i></i><i></i></span>AN-OS // TERMINALE 03 <strong>SESSIONE NON AUTORIZZATA</strong></div><div class="terminal-output" id="terminal-output" role="log" aria-live="polite"><p>&gt; BENVENUTO NEL SISTEMA DI TRASPARENZA AZIENDALE</p><p>&gt; AUTENTICAZIONE: SUPERFLUA</p><p>&gt; SELEZIONA UN COMANDO PER CONTINUARE<span class="terminal-caret">_</span></p></div><div class="terminal-commands"><button type="button" data-command="audit">ESEGUI AUDIT</button><button type="button" data-command="truth">MOSTRA VERITÀ</button><button type="button" data-command="delete">CANCELLA PROVE</button><button type="button" data-command="coffee">RICHIEDI CAFFÈ</button></div></div></section>
-<section id="servizi" class="wrap">
+      <section
+        class="specimen"
+        id="laboratorio"
+        aria-label="Laboratorio di qualità simulato"
+      >
+        <div class="specimen-top">
+          <span>02 / LABORATORIO DI PUREZZA</span
+          ><span>RISULTATI NON RIPRODUCIBILI</span>
+        </div>
+        <div class="specimen-layout">
+          <div class="specimen-copy">
+            <span class="lab-tag">CERTIFICAZIONE INTERNA // N. 000</span>
+            <h2>ACQUA.<br /><em>QUASI.</em></h2>
+            <p>
+              Una molecola alla volta, trasformiamo la trasparenza in un
+              problema di comunicazione.
+            </p>
+            <label for="purity"
+              >LIVELLO DI TRASPARENZA DICHIARATA
+              <output id="purity-out">50%</output></label
+            ><input id="purity" type="range" min="0" max="100" value="50" />
+            <p class="lab-result" id="purity-result" aria-live="polite">
+              50% — IL REPARTO LEGALE STA VALUTANDO.
+            </p>
+            <button id="certify" class="lab-certify" type="button">
+              GENERA CERTIFICATO DI AUTOSTIMA ↗
+            </button>
+          </div>
+          <div class="specimen-display">
+            <canvas
+              id="water-canvas"
+              aria-label="Simulazione grafica di un campione d'acqua"
+              role="img"
+            ></canvas>
+            <div class="specimen-hud">
+              <span>CAMERA 04 // CAMPIONE X-47</span
+              ><span id="lab-status">CONTAMINAZIONE ESTETICA</span>
+            </div>
+            <div class="specimen-cross cross-a">+</div>
+            <div class="specimen-cross cross-b">+</div>
+            <div class="specimen-circle"></div>
+            <div class="specimen-bottom">
+              NON ADATTO A QUALSIASI USO PREVISTO
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="terminal-zone"
+        id="archivio"
+        aria-label="Terminale archivio aziendale"
+      >
+        <div class="terminal-intro">
+          <span>03 / ACCESSO RISERVATO</span>
+          <h2>LA VERITÀ<br /><em>È OFFLINE.</em></h2>
+          <p>
+            Il nostro archivio contiene informazioni di interesse pubblico. Per
+            questo abbiamo installato un terminale che non funziona.
+          </p>
+        </div>
+        <div class="terminal-box">
+          <div class="terminal-bar">
+            <span><i></i><i></i><i></i></span>AN-OS // TERMINALE 03
+            <strong>SESSIONE NON AUTORIZZATA</strong>
+          </div>
+          <div
+            class="terminal-output"
+            id="terminal-output"
+            role="log"
+            aria-live="polite"
+          >
+            <p>&gt; BENVENUTO NEL SISTEMA DI TRASPARENZA AZIENDALE</p>
+            <p>&gt; AUTENTICAZIONE: SUPERFLUA</p>
+            <p>
+              &gt; SELEZIONA UN COMANDO PER CONTINUARE<span
+                class="terminal-caret"
+                >_</span
+              >
+            </p>
+          </div>
+          <div class="terminal-commands">
+            <button type="button" data-command="audit">ESEGUI AUDIT</button
+            ><button type="button" data-command="truth">MOSTRA VERITÀ</button
+            ><button type="button" data-command="delete">CANCELLA PROVE</button
+            ><button type="button" data-command="coffee">RICHIEDI CAFFÈ</button>
+          </div>
+        </div>
+      </section>
+      <section id="servizi" class="wrap">
         <div class="sectionTop">
           <div>
             <span class="eyebrow">COSA FACCIAMO PER TE (NONOSTANTE TE)</span>
@@ -142,7 +258,13 @@
         </div>
         <div class="grid three" id="people"></div>
       </section>
-      <section class="finale" aria-label="Il nostro futuro"><div class="finale-small">FINE DELLA TRASMISSIONE / 03</div><h2 id="finale-title">IL FUTURO È<br><span>NELLE NOSTRE MANI.</span></h2><p>CI SCUSIAMO PREVENTIVAMENTE PER L'INCONVENIENTE.</p></section>
+      <section class="finale" aria-label="Il nostro futuro">
+        <div class="finale-small">FINE DELLA TRASMISSIONE / 03</div>
+        <h2 id="finale-title">
+          IL FUTURO È<br /><span>NELLE NOSTRE MANI.</span>
+        </h2>
+        <p>CI SCUSIAMO PREVENTIVAMENTE PER L'INCONVENIENTE.</p>
+      </section>
       <section class="cta">
         <div class="wrap">
           <span class="eyebrow">ASSUNZIONI IN CORSO</span>

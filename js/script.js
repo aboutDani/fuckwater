@@ -1,41 +1,290 @@
 (() => {
-'use strict';
-const clone=x=>JSON.parse(JSON.stringify(x));
-const defaults=clone(window.INITIAL_DATA);
-let data=clone(defaults), tab='people', authed=false;
-try { const saved=JSON.parse(localStorage.getItem('nefasta-content')||'{}'); data={...data,...saved}; } catch{}
-const $=id=>document.getElementById(id);
-const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const save=()=>localStorage.setItem('nefasta-content',JSON.stringify(data));
-const image=v=>{if(!v)return '';if(v.startsWith('/images/'))return './'+v.slice(1);if(v.startsWith('images/'))return './'+v;return v};
-function render(){
- $('notice').textContent=data.site.notice||'';
- $('brand').innerHTML=esc(data.site.brand||'Acqua Nefasta S.p.A.')+'<small>S.I.I. DEL DEMONE</small>';
- const words=(data.site.tagline||'').split(' ');$('hero-title').innerHTML=esc(words.slice(0,2).join(' '))+'<br><em>'+esc(words.slice(2).join(' '))+'</em>';
- $('hero-intro').textContent=data.site.intro||'';
- $('stats').innerHTML=(data.stats||[]).map(s=>`<div><small>${esc(s.label)}</small><strong>${esc(s.value)}</strong></div>`).join('');
- $('services').innerHTML=(data.services||[]).map((s,i)=>`<article class="service card"><span class="index">SERVIZIO 0${i+1}</span><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p><div class="cardFoot">${esc(s.tag)} <span>↗</span></div></article>`).join('');
- $('alerts').innerHTML=(data.alerts||[]).map((a,i)=>`<article class="card news"><div class="meta"><span>${esc(a.category)}</span><span>${esc(a.date)}</span></div><h3>${esc(a.title)}</h3><p>${esc(a.body)}</p><button class="textButton" data-alert="${i}">Leggi il comunicato ↗</button></article>`).join('');
- $('jobs').innerHTML=(data.jobs||[]).map(j=>`<article class="card news"><div class="meta"><span>${esc(j.category)}</span><span>INUTILITÀ TOTALE</span></div><h3>${esc(j.title)}</h3><p>${esc(j.body)}</p><div class="cardFoot">SCADENZA <b>${esc(j.date)}</b></div></article>`).join('');
- $('people-count').textContent=(data.people||[]).length+' PROFILI IN ARCHIVIO';
- $('people').innerHTML=(data.people||[]).map((p,i)=>`<article class="person card"><div class="portrait">${p.image?`<img src="${esc(image(p.image))}" alt="${esc(p.name)}">`:'<div class="silhouette"><span>◉</span><small>FOTO NON PERVENUTA</small></div>'}<span class="badge">● IN SERVIZIO</span></div><div class="personBody"><span class="index">FASCICOLO N. ${String(i+1).padStart(3,'0')}</span><h3>${esc(p.name)}</h3><div class="role">${esc(p.role)}</div><blockquote>“${esc(p.quote)}”</blockquote><p>${esc(p.bio)}</p></div></article>`).join('');
- reveal();
-}
-const ticker=['VITTIME DELL’IDRATAZIONE: 8.000.000.000','TUBI CON OPINIONI PROPRIE: 412','PERDITE NON RIPARATE: TUTTE','PERSONALE QUALIFICATO: 0,4%','FIDUCIA DEI CITTADINI: NESSUNA','ACQUA ANALIZZATA: SI SPERA'];
-$('ticker-track').innerHTML=Array.from({length:2},()=>'<span class="ticker-set">'+ticker.map(t=>`<span class="ticker-item"><span>${esc(t)}</span><span class="ticker-symbol" aria-hidden="true">✳</span></span>`).join('')+'</span>').join('');
-const observer=('IntersectionObserver'in window)?new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px 35px 0px'}):null;
-function reveal(){document.querySelectorAll('.sectionTop, .grid > .card, .numbers > div, .plant, .cta, .stats, .hero .actions').forEach((node,index)=>{if(node.dataset.revealed)return;node.dataset.revealed='1';node.classList.add('motion-reveal');node.style.setProperty('--reveal-delay',`${(index%4)*85}ms`);if(observer)observer.observe(node);else node.classList.add('is-visible')})}
-function progress(){const max=document.documentElement.scrollHeight-innerHeight;document.documentElement.style.setProperty('--reading-progress',`${max>0?scrollY/max*100:0}%`)}
-window.addEventListener('scroll',progress,{passive:true});window.addEventListener('resize',progress);
-$('menu-button').addEventListener('click',()=>{$('main-nav').classList.toggle('open');$('menu-button').textContent=$('main-nav').classList.contains('open')?'✕':'☰'});
-$('main-nav').addEventListener('click',e=>{if(e.target.closest('a')){$('main-nav').classList.remove('open');$('menu-button').textContent='☰'}});
-function closeModal(){$('modal-root').innerHTML=''}
-function modal(markup){$('modal-root').innerHTML=markup;$('modal-root').querySelector('.overlay')?.addEventListener('mousedown',e=>{if(e.target.classList.contains('overlay'))closeModal()});$('modal-root').querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeModal))}
-document.addEventListener('click',e=>{const btn=e.target.closest('[data-alert]');if(!btn)return;const a=data.alerts[Number(btn.dataset.alert)];if(!a)return;modal(`<div class="overlay"><div class="modal"><button class="close" data-close aria-label="Chiudi">✕</button><span class="eyebrow">${esc(a.category)} · ${esc(a.date)}</span><h2>${esc(a.title)}</h2><p>${esc(a.body)}</p></div></div>`)});
-function login(){modal(`<div class="overlay adminOverlay"><section class="admin-login" role="dialog" aria-modal="true" aria-labelledby="admin-login-title"><button class="admin-login-close" data-close aria-label="Chiudi">✕</button><div class="admin-login-icon">♙</div><span class="mono-label">AREA RISERVATA</span><h2 id="admin-login-title">ACCESSO ADMIN</h2><p>Inserisci la password per gestire i contenuti del sito.</p><form id="login-form"><label for="admin-password">PASSWORD</label><input id="admin-password" type="password" autocomplete="current-password" autofocus><div id="login-error" class="admin-login-error" role="alert" hidden>Password non corretta.</div><button class="admin-login-submit" type="submit">ACCEDI AL PANNELLO →</button></form><small>Accesso dimostrativo: per proteggere dati condivisi online è necessario un backend.</small></section></div>`);$('login-form').addEventListener('submit',e=>{e.preventDefault();if($('admin-password').value==='admin'){authed=true;admin()}else $('login-error').hidden=false});$('admin-password').focus()}
-function admin(){if(!authed)return login();const tabs=[['site','Sito'],['stats','Statistiche'],['services','Servizi'],['alerts','Allarmi'],['jobs','Bandi'],['people','Personaggi']];modal(`<div class="overlay adminOverlay"><aside class="admin"><div class="adminHeader"><div><span class="eyebrow">PANNELLO CONTENUTI</span><h2>Amministrazione</h2></div><button data-close aria-label="Chiudi">✕</button></div><p class="adminHint">Le modifiche vengono salvate nel browser. Esporta un JSON per conservarle o trasferirle su un altro dispositivo.</p><div class="adminTabs">${tabs.map(([k,t])=>`<button data-tab="${k}" class="${tab===k?'active':''}">${t}</button>`).join('')}</div><div class="adminContent" id="admin-content"></div><div class="adminBottom"><button id="export-json">↓ Esporta JSON</button><label class="import">↑ Importa JSON<input type="file" id="import-json" accept="application/json"></label><span>✓ Salvato automaticamente</span></div></aside></div>`);$('modal-root').querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{tab=b.dataset.tab;admin()}));$('export-json').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='acqua-nefasta-contenuti.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});$('import-json').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{const v=JSON.parse(await f.text());data={...clone(defaults),...v};save();render();admin();alert('Contenuti importati')}catch{alert('JSON non valido')}});renderAdminContent()}
-function renderAdminContent(){const c=$('admin-content');if(!c)return;if(tab==='site'){c.innerHTML=Object.entries(data.site).map(([k,v])=>`<label>${esc(k)}<textarea data-field="${esc(k)}">${esc(v)}</textarea></label>`).join('')}else{c.innerHTML=(data[tab]||[]).map((item,i)=>`<div class="editCard"><div class="editHead"><b>${esc(tab==='people'?item.name:item.title||item.label||'Elemento '+(i+1))}</b><button data-remove="${i}" title="Elimina">✕</button></div>${Object.entries(item).map(([k,v])=>`<label>${esc(k)}${String(v).length>75?`<textarea data-index="${i}" data-field="${esc(k)}">${esc(v)}</textarea>`:`<input data-index="${i}" data-field="${esc(k)}" value="${esc(v)}">`}</label>`).join('')}</div>`).join('')+'<button class="btn add" id="add-item">＋ Aggiungi elemento</button>'}c.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{if(tab==='site')data.site[el.dataset.field]=el.value;else data[tab][Number(el.dataset.index)][el.dataset.field]=el.value;save();render()}));c.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{data[tab].splice(Number(b.dataset.remove),1);save();render();renderAdminContent()}));$('add-item')?.addEventListener('click',()=>{const sample=data[tab][0]||{title:'',body:''};data[tab].push(Object.fromEntries(Object.keys(sample).map(k=>[k,''])));save();render();renderAdminContent()})}
-$('admin-open').addEventListener('click',admin);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-render();progress();
+  "use strict";
+  const clone = (x) => JSON.parse(JSON.stringify(x));
+  const defaults = clone(window.INITIAL_DATA);
+  let data = clone(defaults),
+    tab = "people",
+    authed = false;
+  try {
+    const saved = JSON.parse(localStorage.getItem("nefasta-content") || "{}");
+    data = { ...data, ...saved };
+  } catch {}
+  const $ = (id) => document.getElementById(id);
+  const esc = (v) =>
+    String(v ?? "").replace(
+      /[&<>"']/g,
+      (c) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[c],
+    );
+  const save = () =>
+    localStorage.setItem("nefasta-content", JSON.stringify(data));
+  const image = (v) => {
+    if (!v) return "";
+    if (v.startsWith("/images/")) return "./" + v.slice(1);
+    if (v.startsWith("images/")) return "./" + v;
+    return v;
+  };
+  function render() {
+    $("notice").textContent = data.site.notice || "";
+    $("brand").innerHTML =
+      esc(data.site.brand || "Acqua Nefasta S.p.A.") +
+      "<small>S.I.I. DEL DEMONE</small>";
+    const words = (data.site.tagline || "").split(" ");
+    $("hero-title").innerHTML =
+      esc(words.slice(0, 2).join(" ")) +
+      "<br><em>" +
+      esc(words.slice(2).join(" ")) +
+      "</em>";
+    $("hero-intro").textContent = data.site.intro || "";
+    $("stats").innerHTML = (data.stats || [])
+      .map(
+        (s) =>
+          `<div><small>${esc(s.label)}</small><strong>${esc(s.value)}</strong></div>`,
+      )
+      .join("");
+    $("services").innerHTML = (data.services || [])
+      .map(
+        (s, i) =>
+          `<article class="service card"><span class="index">SERVIZIO 0${i + 1}</span><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p><div class="cardFoot">${esc(s.tag)} <span>↗</span></div></article>`,
+      )
+      .join("");
+    $("alerts").innerHTML = (data.alerts || [])
+      .map(
+        (a, i) =>
+          `<article class="card news"><div class="meta"><span>${esc(a.category)}</span><span>${esc(a.date)}</span></div><h3>${esc(a.title)}</h3><p>${esc(a.body)}</p><button class="textButton" data-alert="${i}">Leggi il comunicato ↗</button></article>`,
+      )
+      .join("");
+    $("jobs").innerHTML = (data.jobs || [])
+      .map(
+        (j) =>
+          `<article class="card news"><div class="meta"><span>${esc(j.category)}</span><span>INUTILITÀ TOTALE</span></div><h3>${esc(j.title)}</h3><p>${esc(j.body)}</p><div class="cardFoot">SCADENZA <b>${esc(j.date)}</b></div></article>`,
+      )
+      .join("");
+    $("people-count").textContent =
+      (data.people || []).length + " PROFILI IN ARCHIVIO";
+    $("people").innerHTML = (data.people || [])
+      .map(
+        (p, i) =>
+          `<article class="person card"><div class="portrait">${p.image ? `<img src="${esc(image(p.image))}" alt="${esc(p.name)}">` : '<div class="silhouette"><span>◉</span><small>FOTO NON PERVENUTA</small></div>'}<span class="badge">● IN SERVIZIO</span></div><div class="personBody"><span class="index">FASCICOLO N. ${String(i + 1).padStart(3, "0")}</span><h3>${esc(p.name)}</h3><div class="role">${esc(p.role)}</div><blockquote>“${esc(p.quote)}”</blockquote><p>${esc(p.bio)}</p></div></article>`,
+      )
+      .join("");
+    reveal();
+  }
+  const ticker = [
+    "VITTIME DELL’IDRATAZIONE: 8.000.000.000",
+    "TUBI CON OPINIONI PROPRIE: 412",
+    "PERDITE NON RIPARATE: TUTTE",
+    "PERSONALE QUALIFICATO: 0,4%",
+    "FIDUCIA DEI CITTADINI: NESSUNA",
+    "ACQUA ANALIZZATA: SI SPERA",
+  ];
+  $("ticker-track").innerHTML = Array.from(
+    { length: 2 },
+    () =>
+      '<span class="ticker-set">' +
+      ticker
+        .map(
+          (t) =>
+            `<span class="ticker-item"><span>${esc(t)}</span><span class="ticker-symbol" aria-hidden="true">✳</span></span>`,
+        )
+        .join("") +
+      "</span>",
+  ).join("");
+  const observer =
+    "IntersectionObserver" in window
+      ? new IntersectionObserver(
+          (entries) =>
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            }),
+          { threshold: 0.08, rootMargin: "0px 0px 35px 0px" },
+        )
+      : null;
+  function reveal() {
+    document
+      .querySelectorAll(
+        ".sectionTop, .grid > .card, .numbers > div, .plant, .cta, .stats, .hero .actions",
+      )
+      .forEach((node, index) => {
+        if (node.dataset.revealed) return;
+        node.dataset.revealed = "1";
+        node.classList.add("motion-reveal");
+        node.style.setProperty("--reveal-delay", `${(index % 4) * 85}ms`);
+        if (observer) observer.observe(node);
+        else node.classList.add("is-visible");
+      });
+  }
+  function progress() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    document.documentElement.style.setProperty(
+      "--reading-progress",
+      `${max > 0 ? (scrollY / max) * 100 : 0}%`,
+    );
+  }
+  window.addEventListener("scroll", progress, { passive: true });
+  window.addEventListener("resize", progress);
+  $("menu-button").addEventListener("click", () => {
+    $("main-nav").classList.toggle("open");
+    $("menu-button").textContent = $("main-nav").classList.contains("open")
+      ? "✕"
+      : "☰";
+  });
+  $("main-nav").addEventListener("click", (e) => {
+    if (e.target.closest("a")) {
+      $("main-nav").classList.remove("open");
+      $("menu-button").textContent = "☰";
+    }
+  });
+  function closeModal() {
+    $("modal-root").innerHTML = "";
+  }
+  function modal(markup) {
+    $("modal-root").innerHTML = markup;
+    $("modal-root")
+      .querySelector(".overlay")
+      ?.addEventListener("mousedown", (e) => {
+        if (e.target.classList.contains("overlay")) closeModal();
+      });
+    $("modal-root")
+      .querySelectorAll("[data-close]")
+      .forEach((b) => b.addEventListener("click", closeModal));
+  }
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-alert]");
+    if (!btn) return;
+    const a = data.alerts[Number(btn.dataset.alert)];
+    if (!a) return;
+    modal(
+      `<div class="overlay"><div class="modal"><button class="close" data-close aria-label="Chiudi">✕</button><span class="eyebrow">${esc(a.category)} · ${esc(a.date)}</span><h2>${esc(a.title)}</h2><p>${esc(a.body)}</p></div></div>`,
+    );
+  });
+  function login() {
+    modal(
+      `<div class="overlay adminOverlay"><section class="admin-login" role="dialog" aria-modal="true" aria-labelledby="admin-login-title"><button class="admin-login-close" data-close aria-label="Chiudi">✕</button><div class="admin-login-icon">♙</div><span class="mono-label">AREA RISERVATA</span><h2 id="admin-login-title">ACCESSO ADMIN</h2><p>Inserisci la password per gestire i contenuti del sito.</p><form id="login-form"><label for="admin-password">PASSWORD</label><input id="admin-password" type="password" autocomplete="current-password" autofocus><div id="login-error" class="admin-login-error" role="alert" hidden>Password non corretta.</div><button class="admin-login-submit" type="submit">ACCEDI AL PANNELLO →</button></form><small>Accesso dimostrativo: per proteggere dati condivisi online è necessario un backend.</small></section></div>`,
+    );
+    $("login-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if ($("admin-password").value === "admin") {
+        authed = true;
+        admin();
+      } else $("login-error").hidden = false;
+    });
+    $("admin-password").focus();
+  }
+  function admin() {
+    if (!authed) return login();
+    const tabs = [
+      ["site", "Sito"],
+      ["stats", "Statistiche"],
+      ["services", "Servizi"],
+      ["alerts", "Allarmi"],
+      ["jobs", "Bandi"],
+      ["people", "Personaggi"],
+    ];
+    modal(
+      `<div class="overlay adminOverlay"><aside class="admin"><div class="adminHeader"><div><span class="eyebrow">PANNELLO CONTENUTI</span><h2>Amministrazione</h2></div><button data-close aria-label="Chiudi">✕</button></div><p class="adminHint">Le modifiche vengono salvate nel browser. Esporta un JSON per conservarle o trasferirle su un altro dispositivo.</p><div class="adminTabs">${tabs.map(([k, t]) => `<button data-tab="${k}" class="${tab === k ? "active" : ""}">${t}</button>`).join("")}</div><div class="adminContent" id="admin-content"></div><div class="adminBottom"><button id="export-json">↓ Esporta JSON</button><label class="import">↑ Importa JSON<input type="file" id="import-json" accept="application/json"></label><span>✓ Salvato automaticamente</span></div></aside></div>`,
+    );
+    $("modal-root")
+      .querySelectorAll("[data-tab]")
+      .forEach((b) =>
+        b.addEventListener("click", () => {
+          tab = b.dataset.tab;
+          admin();
+        }),
+      );
+    $("export-json").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "acqua-nefasta-contenuti.json";
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+    $("import-json").addEventListener("change", async (e) => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      try {
+        const v = JSON.parse(await f.text());
+        data = { ...clone(defaults), ...v };
+        save();
+        render();
+        admin();
+        alert("Contenuti importati");
+      } catch {
+        alert("JSON non valido");
+      }
+    });
+    renderAdminContent();
+  }
+  function renderAdminContent() {
+    const c = $("admin-content");
+    if (!c) return;
+    if (tab === "site") {
+      c.innerHTML = Object.entries(data.site)
+        .map(
+          ([k, v]) =>
+            `<label>${esc(k)}<textarea data-field="${esc(k)}">${esc(v)}</textarea></label>`,
+        )
+        .join("");
+    } else {
+      c.innerHTML =
+        (data[tab] || [])
+          .map(
+            (item, i) =>
+              `<div class="editCard"><div class="editHead"><b>${esc(tab === "people" ? item.name : item.title || item.label || "Elemento " + (i + 1))}</b><button data-remove="${i}" title="Elimina">✕</button></div>${Object.entries(
+                item,
+              )
+                .map(
+                  ([k, v]) =>
+                    `<label>${esc(k)}${String(v).length > 75 ? `<textarea data-index="${i}" data-field="${esc(k)}">${esc(v)}</textarea>` : `<input data-index="${i}" data-field="${esc(k)}" value="${esc(v)}">`}</label>`,
+                )
+                .join("")}</div>`,
+          )
+          .join("") +
+        '<button class="btn add" id="add-item">＋ Aggiungi elemento</button>';
+    }
+    c.querySelectorAll("[data-field]").forEach((el) =>
+      el.addEventListener("input", () => {
+        if (tab === "site") data.site[el.dataset.field] = el.value;
+        else data[tab][Number(el.dataset.index)][el.dataset.field] = el.value;
+        save();
+        render();
+      }),
+    );
+    c.querySelectorAll("[data-remove]").forEach((b) =>
+      b.addEventListener("click", () => {
+        data[tab].splice(Number(b.dataset.remove), 1);
+        save();
+        render();
+        renderAdminContent();
+      }),
+    );
+    $("add-item")?.addEventListener("click", () => {
+      const sample = data[tab][0] || { title: "", body: "" };
+      data[tab].push(
+        Object.fromEntries(Object.keys(sample).map((k) => [k, ""])),
+      );
+      save();
+      render();
+      renderAdminContent();
+    });
+  }
+  $("admin-open").addEventListener("click", admin);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+  render();
+  progress();
 })();
